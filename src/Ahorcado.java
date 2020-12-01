@@ -4,15 +4,15 @@ import java.util.Random;
 public class Ahorcado {
 
     
-        final int nrIntentos = 7; // Constante con el limite de fallos
-        int intentos = 0;
-        int aciertos = 0;
+        private final int nrIntentos = 7; // Constante con el limite de fallos
+        private int intentos = 0;
+        private int aciertos = 0;
        
         public Ahorcado(){}
         
-        Scanner teclado = new Scanner(System.in);
+        private Scanner teclado = new Scanner(System.in);
+        private char resp;
         
-        char resp;
         public void Jugar(){
         
         Random rnd = new Random();// Random para coger una palabra al azar
@@ -27,11 +27,11 @@ public class Ahorcado {
        
         do {
         
-        // Desguazamos la palabra y la guardamos en un array de caracteres
+        //SEPARO LAS LETRAS
         int alea = rnd.nextInt(3);
         char[] desguazada = desguaza(palabras[alea]);
-        char[] copia = desguaza(palabras[alea]); // Algo auxiliar para mas tarde
-        // Array para pintar mierdecillas en pantalla(Guiones o letras vamos)
+        char[] copia = desguaza(palabras[alea]); 
+        
         char[] tusRespuestas = new char[desguazada.length];
  
         // Rellenamos palabras ocn guiones
@@ -39,16 +39,15 @@ public class Ahorcado {
             tusRespuestas[i] = '_';
         }
         
-        // Empezamos a pintar mierdas en pantalla
+        
         System.out.println("Adivina la palabra!");
         
-        // Mientras que no nos pasemos con los intentos y no la acertemos...
+        // Mientras que no nos pasemos con los intentos y no la acertemos
         while(intentos < nrIntentos && aciertos != tusRespuestas.length){
-            imprimeOculta(tusRespuestas);
-            // Preguntamos mierdas por teclado
+            imprimeOculta(tusRespuestas); 
             System.out.println("\nIntroduce una letra: ");
             resp = teclado.next().toLowerCase().charAt(0);
-            // Recorremos el array y comprobamos si se ha producido un acierto
+            // Busca palabra
             for(int i = 0; i < desguazada.length; i++){
                 if(desguazada[i]==resp){
                     tusRespuestas[i] = desguazada[i];
@@ -58,14 +57,14 @@ public class Ahorcado {
             }    
             intentos++;
         }
-        // Si hemos acertado todas imprimimos un mensahe
+        // Si se han acertado las letras
         if(aciertos == tusRespuestas.length){
             System.out.print("\nFalocidades!! has acertado la palabra: ");
             imprimeOculta(tusRespuestas);
         }
         // Si no otro
         else{
-            System.out.print("\nMenudo ceporro eres! la palabra era: ");
+            System.out.print("\nIncorecto! La palabra era: ");
             for(int i = 0; i < copia.length; i++){
                 System.out.print(copia[i] + " ");
             }
